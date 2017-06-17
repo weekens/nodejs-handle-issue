@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-handle-issue",
+  "version": "0.0.1",
+  "description": "Reproduces Node.js server handle transferring issue.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untu/comedy.git"
+  },
+  "author": "Viktor Isaev (weekens@gmail.com)",
+  "license": "EPL-1.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-like": "^0.1.10",
+    "mocha": "^3.1.0",
+    "bluebird": "3.4.6"
+  }
+}
