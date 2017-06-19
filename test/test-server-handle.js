@@ -45,6 +45,10 @@ describe('net.Server handle', function() {
 
         console.log('after process response');
 
+        yield P.fromCallback(cb => {
+          server.close(cb);
+        });
+
         var serverMessage = yield P.fromCallback(cb => {
           var clientSocket = new net.Socket();
 
@@ -62,14 +66,21 @@ describe('net.Server handle', function() {
         });
 
         expect(serverMessage).to.be.equal('Hello!');
-      }
-      finally {
+
         yield P.fromCallback(cb => {
           workerProcess.send('close', cb);
         });
+
         yield P.fromCallback(cb => {
-          server.close(cb);
+          workerProcess.once('message', msg => {
+            console.log('process response, msg =', msg);
+
+            if (msg == 'closed') cb();
+          });
         });
+      }
+      finally {
+        workerProcess.kill();
       }
     }));
   }
